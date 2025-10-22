@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>💖 Давгадорж & Дарьсарнай Болзооны Урилга 💖</title>
+<style>
+  * { box-sizing: border-box; }
+  body { margin:0; font-family:'Poppins',sans-serif; color:#fff; text-align:center; overflow:hidden; position:relative;}
+  .video-bg { position: fixed; top:0; left:0; width:100vw; height:100vh; overflow:hidden; z-index:-3; }
+  .video-bg iframe { width:100%; height:100%; object-fit:cover; pointer-events:none; }
+  .overlay { position: fixed; top:0; left:0; width:100%; height:100%; background: radial-gradient(rgba(0,0,0,0.4), rgba(255,100,150,0.25)); z-index:-2; }
+  .falling-heart { position:absolute; top:-10px; color:rgba(255,255,255,0.9); font-size:20px; animation:fall linear forwards; z-index:-1;}
+  @keyframes fall {0%{transform:translateY(0) rotate(0deg);opacity:1;}100%{transform:translateY(100vh) rotate(360deg);opacity:0;}}
+  section { min-height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:20px; position:relative; z-index:1; text-shadow:0 2px 8px rgba(0,0,0,0.8); }
+  h1 { font-size:1.8em; margin-bottom:10px; color:#FF4C7D; }
+  p { font-size:1em; max-width:300px; margin:0 auto; }
+  button { background:#fff; color:#ff6699; border:none; padding:12px 28px; border-radius:30px; font-size:1.1em; cursor:pointer; margin-top:20px; transition:0.3s; box-shadow:0 0 10px rgba(255,255,255,0.3);}
+  button:active { transform: scale(0.95); } button:hover{background:#ffe6eb;}
+  .heart{font-size:60px; animation:pulse 1.3s infinite;} @keyframes pulse{0%{transform:scale(1);}50%{transform:scale(1.2);}100%{transform:scale(1);}}
+  .page{display:none;} .active{display:flex; flex-direction:column; align-items:center; justify-content:center;}
+  @media(max-width:600px){h1{font-size:1.5em;}p{font-size:0.95em;}button{font-size:1em;padding:10px 22px;}}
+  #playMusicBtn{position:fixed;bottom:20px;right:20px;padding:12px 20px;border-radius:10px;background:#ff6699;color:white;border:none;cursor:pointer;z-index:10;}
+</style>
+</head>
+<body>
+<div class="video-bg">
+<iframe src="https://www.youtube.com/embed/QD-tVcq4wQo?autoplay=1&loop=1&playlist=QD-tVcq4wQo&controls=0&mute=1&modestbranding=1&showinfo=0" frameborder="0" allow="autoplay; fullscreen"></iframe>
+</div>
+<div class="overlay"></div>
+
+<section id="page1" class="page active">
+<h1>💌 Сайн уу, Дарьсарнай 💕</h1>
+<p>Надад чамд зориулсан нэг гэнэтийн зүйл байна 😚</p>
+<button onclick="nextPage(2)">Нэг үзье дээ 💖</button>
+</section>
+
+<section id="page2" class="page">
+<h1>🌷 Чи миний өдрүүдийг гэрэлтүүлдэг 🌷</h1>
+<p>Тийм болохоор... нэг санаа төрчихлөө 😏</p>
+<button onclick="nextPage(3)">Юу гэдгийг нь мэдмээр байна уу? ➡️</button>
+</section>
+
+<section id="page3" class="page">
+<div class="heart">💗</div>
+<h1>Надтай болзоонд явах уу? 🥰</h1>
+<button onclick="nextPage(4)">Мэдээж  😍</button>
+<button onclick="nextPage(5)">Хмм... бодъё доо 🤔</button>
+</section>
+
+<section id="page4" class="page">
+<h1>Яяя! 🎉</h1>
+<p><strong>📅 Огноо:</strong> 2025-11-08</p>
+<p><strong>🕒 Цаг:</strong> 19:00</p>
+<p><strong>📍 Газар:</strong> cafe bene  ☕</p>
+<p>Би чамайг хүлээнэ... заавал ирээрэй😘</p>
+<button onclick="shareInvite()">💌 Урилгаа хуваалцах</button>
+</section>
+
+<section id="page5" class="page">
+<h1>😢 За тэгвэл дараагийн удаа...</h1>
+<p>Гэхдээ би чинь амар бууж өгдөггүй шүү 😏</p>
+<button onclick="nextPage(1)">Дахиад үзье 🔁</button>
+</section>
+
+<audio id="bgMusic" src="FIFTY FIFTY - Cupid Spedup.mp3" loop></audio>
+<button id="playMusicBtn">🎹 Дуу тоглуулах</button>
+
+<script>
+let currentPage=1;
+function nextPage(n){document.getElementById(`page${currentPage}`).classList.remove('active');document.getElementById(`page${n}`).classList.add('active');currentPage=n;}
+
+async function shareInvite(){
+const shareData={title:'💖 Давгадорж & Дарьсарнай Болзооны Урилга 💖',text:'Нэгэн онцгой хүн чамайг болзоонд урьж байна 😍',url:window.location.href};
+try{await navigator.share(shareData);}catch{alert('Энэ линкийг хуулаад илгээгээрэй: '+window.location.href);}
+}
+
+// ❤️ Falling hearts
+function createHeart(){const heart=document.createElement('div');heart.classList.add('falling-heart');heart.innerText='💖';heart.style.left=Math.random()*100+'vw';heart.style.fontSize=15+Math.random()*15+'px';heart.style.animationDuration=4+Math.random()*3+'s';document.body.appendChild(heart);setTimeout(()=>heart.remove(),7000);}
+setInterval(createHeart,500);
+
+// 🎵 Play/pause control
+const music = document.getElementById('bgMusic');
+  const btn = document.getElementById('playMusicBtn');
+
+  btn.addEventListener('click', () => {
+    if (music.paused) {
+      music.play();
+      btn.textContent = '⏸️ Дуу зогсоох';
+    } else {
+      music.pause();
+      btn.textContent = '🎹 Дуу тоглуулах';
+    }
+  });
+</script>
+</body>
+</html>
